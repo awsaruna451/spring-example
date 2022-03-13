@@ -1,0 +1,38 @@
+version: '3.3'
+services:
+  spring_app:
+    build: .
+    networks:
+      example_local_network:
+    ports:
+      - 8080:8080
+      - 8787:8787
+      - 22:22
+  spring_mysql:
+    build: ./deployment/docker/db
+    container_name: spring_mysql
+    networks:
+      example_local_network:
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: 'abc123'
+      MYSQL_DATABASE: 'spring-example'
+      MYSQL_USER: 'test_user'
+      MYSQL_PASSWORD: 'abc'
+  rabbitmq:
+    build: ./deployment/docker/rabbitmq
+    container_name: rabbitmq_spring
+    networks:
+      example_local_network:
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+networks:
+  example_local_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.7.0.0/16
