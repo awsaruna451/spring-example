@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserRegistrationController {
 
     private RegistrationServiceImpl registrationService;
@@ -47,6 +47,12 @@ public class UserRegistrationController {
         }
 
         List<User> users = registrationService.getUsers();
+               return ResponseEntity.ok(new ApiResponse(true, users));
+    }
+    @GetMapping("/user")
+    public ResponseEntity<ApiResponse> getUsers(HttpServletRequest request, @RequestParam("userName") String userName) throws Exception {
+
+        User users = registrationService.getUser(userName);
                return ResponseEntity.ok(new ApiResponse(true, users));
     }
 }

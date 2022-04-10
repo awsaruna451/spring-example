@@ -34,7 +34,11 @@ public class CustomerAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getServletPath().equals("/login")) {
             filterChain.doFilter(request, response);
-        } else if(request.getServletPath().equals("/user/registration")){
+        } else if(request.getServletPath().equals("/api/registration")){
+            filterChain.doFilter(request, response);
+        } else if(request.getServletPath().contains("/api/users")){
+            filterChain.doFilter(request, response);
+        }  else if(request.getServletPath().contains("/api/user")){
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);

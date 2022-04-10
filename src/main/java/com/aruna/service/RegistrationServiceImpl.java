@@ -59,5 +59,8 @@ public class RegistrationServiceImpl {
     public List<User> getUsers() {
        return  userRepository.findAll();
     }
+    public User getUser(String userName) {
+       return  userRepository.findByUserName(userName);
+    }
 
 }
