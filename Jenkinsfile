@@ -1,13 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        GIT_HUB_ORG = 'awsaruna451'
-        CONTAINER_REGISTRY = "ghcr.io/${GIT_HUB_ORG}/"
-        ARTIFACT_ID = readMavenPom().getArtifactId()
-        JAR_NAME = "${ARTIFACT_ID}-${BUILD_NUMBER}"
-        IMAGE_NAME = "${CONTAINER_REGISTRY}${ARTIFACT_ID}"
-    }
 
     stages {
         stage ('Compile Stage') {
